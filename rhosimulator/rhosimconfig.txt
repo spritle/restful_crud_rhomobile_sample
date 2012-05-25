@@ -1,0 +1,8 @@
+rhodes_path='/Users/balajidl/.rvm/gems/ruby-1.9.2-p290/gems/rhodes-3.3.3.5.26.0.beta'
+app_version='1.0'
+app_name='restful_crud_rhomobile_sample'
+reload_app_changes=1
+debug_port=
+debug_host='127.0.0.1'
+platform='iphone'
+ext_path=/Users/balajidl/.rvm/gems/ruby-1.9.2-p290/gems/rhodes-3.3.3.5.26.0.beta/lib/extensions/json;
