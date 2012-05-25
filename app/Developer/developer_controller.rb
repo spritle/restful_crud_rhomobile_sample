@@ -1,6 +1,6 @@
 require 'rho/rhocontroller'
 require 'helpers/browser_helper'
-require 'json'
+
 
 class DeveloperController < Rho::RhoController
   include BrowserHelper
@@ -17,18 +17,23 @@ class DeveloperController < Rho::RhoController
     response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers.json",
      :headers => {"Content-Type" => "application/json"})
     @result = response["body"]
-    @developers = Developer.find(:all)
+    #@developers1=@result[0]['name']
+    #@developers=@result[0]['name']
+    #@developers = Developer.find(:all)
     render :back => '/app'
   end
 
   # GET /Developer/{1}
   def show
-    @developer = Developer.find(@params['id'])
-    if @developer
-      render :action => :show, :back => url_for(:action => :index)
-    else
-      redirect :action => :index
-    end
+    p @params['id'],"-------------"
+    @id =@params['id']
+    p @id,"-------iiiiid----------"
+    #@developer = Developer.find(@params['id'])
+    response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
+         :headers => {"Content-Type" => "application/json"})
+     @result = response["body"]
+   
+    p @result,"*********ressuisuos" 
   end
 
   # GET /Developer/new
@@ -39,24 +44,43 @@ class DeveloperController < Rho::RhoController
 
   # GET /Developer/{1}/edit
   def edit
-    @developer = Developer.find(@params['id'])
-    if @developer
-      render :action => :edit, :back => url_for(:action => :index)
-    else
-      redirect :action => :index
-    end
+    p "============================"
+    @id =@params['id']
+    response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
+           :headers => {"Content-Type" => "application/json"})
+        @result = response["body"]
+       
+   p @result,"----------------ressssssss---"
   end
 
   # POST /Developer/create
   def create
-    @developer = Developer.create(@params['developer'])
+    p @params,"-----------------"
+    p @params['developer']['name'],"--------------name-----"
+    name=@params['developer']['name']
+    role=@params['developer']['role']
+    p name,role,"********************"
+    #@developer = Developer.create(@params['developer'])
+    @body = '{"developer" : {"name" : "'+name+'","role" :"'+role+'"  } }'
+    puts @body,"-----------body-------------"
+    @result =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers.json",
+        :body => @body, :http_command => "POST", :headers => {"Content-Type" => "application/json"})  
     redirect :action => :index
   end
 
   # POST /Developer/{1}/update
   def update
-    @developer = Developer.find(@params['id'])
-    @developer.update_attributes(@params['developer']) if @developer
+    p @params,"-------------update"
+    name=@params['developer']['name']
+       role=@params['developer']['role']
+       p name,role,"****************uuuuuuuuuuu****"
+    @body = '{"developer" : {"name" : "'+name+'","role" :"'+role+'"  } }'
+    
+    response =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
+              :body => @body, :http_command => "PUT",:headers => {"Content-Type" => "application/json"})
+      p "-------------------" 
+    #@developer = Developer.find(@params['id'])
+    #@developer.update_attributes(@params['developer']) if @developer
     redirect :action => :index
   end
 

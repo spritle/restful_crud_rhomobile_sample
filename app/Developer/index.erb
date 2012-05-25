@@ -1,6 +1,6 @@
-<div data-role="page">
+<div data-role="page" >
 
-	<div data-role="header" data-position="inline">
+	<div data-role="header" data-position="inline" >
     <h1>Developers</h1>
     <a href="<%= Rho::RhoConfig.start_path %>" class="ui-btn-left" data-icon="home" data-direction="reverse" <%= "data-ajax='false'" if is_bb6 %>>
       Home
@@ -12,17 +12,13 @@
 
   <div data-role="content">
     <ul data-role="listview">
-	
-			<li><%=  @developers1.class %></li>
-      <% @developers.each do |developer| %>
-      
-          <li>
-            <a href="<%= url_for :action => :show, :id => developer.object %>">
-              <%= developer.name %>
-            </a>
-          </li>
-      
-      <% end %>
+            <% @result.each do |developer| %>
+                <li>
+              
+                    <a href="<%= url_for :action => :show ,:query => {:id => developer["id"]}%>" ><%= developer["name"] %></a>
+                  </a>
+                </li>
+            <% end %>
     </ul>
   </div>
 
