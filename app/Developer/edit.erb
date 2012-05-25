@@ -1,30 +1,32 @@
 <div data-role="page">
 
-<div data-role="header" data-position="inline">
-    <h1>Edit <%= @result['name'] %></h1>
-    <a href="<%= url_for :action => :show, :query => {:id =>@result['id']}%>" class="ui-btn-left" data-icon="back" data-direction="reverse">
-      Cancel
-    </a>
-    <a href="<%= url_for :action => :delete, :query => {:id =>@result['id']}%>" class="ui-btn-right" data-icon="delete" data-direction="reverse">
-      Delete
-    </a>
-  </div>
+	<div data-role="header" data-position="inline">
+		<h1>Edit <%= @result['name'] %></h1>
+		<a href="<%= url_for :action => :show, :query => {:developer_id =>@result['id']}%>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+			Cancel
+		</a>
+		<a href="<%= url_for :action => :delete, :query => {:developer_id =>@result['id']}%>" class="ui-btn-right" data-icon="delete" data-direction="reverse">
+			Delete
+		</a>
+	</div>
 
-  <div data-role="content">
-    <form method="PUT" action="<%= url_for :action => :update %>">
-      <input type="hidden" name="id" value="<%= @result['id']%>"/>
-      
-          <div data-role="fieldcontain">
-            <label for="developer[name]" class="fieldLabel">Name</label>
-            <input type="text" id="developer[name]" name="developer[name]" value="<%= @result['name'] %>" <%= placeholder( "Name" ) %> />
-          </div>
-              <div data-role="fieldcontain">
-                          <label for="developer[role]" class="fieldLabel">Role</label>
-                          <input type="text" id="developer[role]" name="developer[role]" value="<%= @result['role'] %>" <%= placeholder( "role" ) %> />
-                        </div>
-      
-      <input type="submit" value="Update"/>
-    </form>
-  </div>
+	<div data-role="content">
+		<form method="POST" action="<%= url_for :action => :update %>">
+			<input type="hidden" id=name="developer_id" name="developer_id" value="<%= @result['id']%>"/>
+			<div data-role="fieldcontain">
+				ID: <%= @result['id'] %>
+			</div>	
+			<div data-role="fieldcontain">
+				<label for="developer[name]" class="fieldLabel">Name</label>
+				<input type="text" id="developer[name]" name="developer[name]" value="<%= @result['name'] %>" <%= placeholder( "Name" ) %> />
+			</div>
+			<div data-role="fieldcontain">
+				<label for="developer[role]" class="fieldLabel">Role</label>
+				<input type="text" id="developer[role]" name="developer[role]" value="<%= @result['role'] %>" <%= placeholder( "role" ) %> />
+			</div>
+
+			<input type="submit" value="Update"/>
+		</form>
+	</div>
 
 </div>

@@ -7,15 +7,9 @@ class DeveloperController < Rho::RhoController
 
   # GET /Developer
   def index
-    
-    # @body = '{"developer" : {"name" : "Tom","role" : "Bru Keeper" } }'
-    
-    # @result =  Rho::AsyncHttp.post(:url => "http://127.0.0.1:3000/developers.json",
-    #      :body => @body, :http_command => "POST", :headers => {"Content-Type" => "application/json"})      
-  
-       
+    puts "Calling Index................"
     response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers.json",
-     :headers => {"Content-Type" => "application/json"})
+    :headers => {"Content-Type" => "application/json"})
     @result = response["body"]
     #@developers1=@result[0]['name']
     #@developers=@result[0]['name']
@@ -30,9 +24,9 @@ class DeveloperController < Rho::RhoController
     p @id,"-------iiiiid----------"
     #@developer = Developer.find(@params['id'])
     response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
-         :headers => {"Content-Type" => "application/json"})
-     @result = response["body"]
-   
+    :headers => {"Content-Type" => "application/json"})
+    @result = response["body"]
+
     p @result,"*********ressuisuos" 
   end
 
@@ -45,12 +39,12 @@ class DeveloperController < Rho::RhoController
   # GET /Developer/{1}/edit
   def edit
     p "============================"
-    @id =@params['id']
-    response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
-           :headers => {"Content-Type" => "application/json"})
-        @result = response["body"]
-       
-   p @result,"----------------ressssssss---"
+    id =@params['developer_id'].to_s
+    response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/#{id}.json",
+    :headers => {"Content-Type" => "application/json"})
+    @result = response["body"]
+
+    p @result,"----------------ressssssss---"
   end
 
   # POST /Developer/create
@@ -64,7 +58,7 @@ class DeveloperController < Rho::RhoController
     @body = '{"developer" : {"name" : "'+name+'","role" :"'+role+'"  } }'
     puts @body,"-----------body-------------"
     @result =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers.json",
-        :body => @body, :http_command => "POST", :headers => {"Content-Type" => "application/json"})  
+    :body => @body, :http_command => "POST", :headers => {"Content-Type" => "application/json"})  
     redirect :action => :index
   end
 
@@ -72,13 +66,15 @@ class DeveloperController < Rho::RhoController
   def update
     p @params,"-------------update"
     name=@params['developer']['name']
-       role=@params['developer']['role']
-       p name,role,"****************uuuuuuuuuuu****"
+    role=@params['developer']['role']
+    p name,role,"****************uuuuuuuuuuu****"
     @body = '{"developer" : {"name" : "'+name+'","role" :"'+role+'"  } }'
+    id = @params["developer_id"].to_s
+
+    response =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers/#{id}.json",
+    :body => @body, :http_command => "PUT",:headers => {"Content-Type" => "application/json"})
     
-    response =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+@id+".json",
-              :body => @body, :http_command => "PUT",:headers => {"Content-Type" => "application/json"})
-      p "-------------------" 
+    puts "----------------update success ---------"
     #@developer = Developer.find(@params['id'])
     #@developer.update_attributes(@params['developer']) if @developer
     redirect :action => :index
@@ -86,8 +82,12 @@ class DeveloperController < Rho::RhoController
 
   # POST /Developer/{1}/delete
   def delete
-    @developer = Developer.find(@params['id'])
-    @developer.destroy if @developer
+    # @developer = Developer.find(@params['id'])
+    # @developer.destroy if @developer
+    id = @params["developer_id"].to_s
+    response =  Rho::AsyncHttp.post(:url => Rho::RhoConfig.RESTFUL_URL + "developers/#{id}.json",
+    :http_command => "DELETE", 
+    :headers => {"Content-Type" => "application/json"})  
     redirect :action => :index  
   end
 end
