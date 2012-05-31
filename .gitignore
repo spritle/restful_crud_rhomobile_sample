@@ -2,6 +2,7 @@
 rholog.txt
 rholog-*
 sim-*
+.project
 
 # build output
 bin/
