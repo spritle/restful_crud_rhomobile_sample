@@ -1,29 +1,28 @@
 <div data-role="page">
 
-  <div data-role="header" data-position="inline">
-    <h1>New <%= @developer.title %></h1>
-    <a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
-      Cancel
-    </a>
-  </div>
+	<div data-role="header" data-position="inline">
+		<h1>New <%= @developer.title %></h1>
+		<a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+			Cancel
+		</a>
+	</div>
 
-  <div data-role="content">
-    <form method="POST" action="<%= url_for :action => :create %>">
-      <input type="hidden" name="id" value="<%= @developer.object %>"/>
+	<div data-role="content">
+		<form method="POST" action="<%= url_for :action => :create %>">
+			<input type="hidden" name="id" value="<%= @developer.object %>"/>
+			
+			<div data-role="fieldcontain">
+				<label for="developer[name]" class="fieldLabel">Name</label>
+				<input type="text" id="developer[name]" name="developer[name]" <%= placeholder("Name") %> />
+			</div>
 
-      
-          <div data-role="fieldcontain">
-            <label for="developer[name]" class="fieldLabel">Name</label>
-            <input type="text" id="developer[name]" name="developer[name]" <%= placeholder("Name") %> />
-          </div>
-    
-          <div data-role="fieldcontain">
-             <label for="developer[role]" class="fieldLabel">Role</label>
-             <input type="text" id="developer[role]" name="developer[role]" <%= placeholder("role") %> />
-          </div>
+			<div data-role="fieldcontain">
+				<label for="developer[role]" class="fieldLabel">Role</label>
+				<input type="text" id="developer[role]" name="developer[role]" <%= placeholder("role") %> />
+			</div>
 
-          <input type="submit" value="Create"/>
-    </form>
-  </div>
+			<input type="submit" value="Create"/>
+		</form>
+	</div>
 
 </div>

@@ -1,8 +1,0 @@
-rhodes_path='C:/RhoStudio/ruby/lib/ruby/gems/1.8/gems/rhodes-3.3.1'
-app_name='restful_crud_rhomobile_sample'
-reload_app_changes=0
-debug_port=
-debug_host='127.0.0.1'
-platform='android'
-os_version='2.1'
-ext_path=C:/RhoStudio/ruby/lib/ruby/gems/1.8/gems/rhodes-3.3.1/lib/extensions/json;
