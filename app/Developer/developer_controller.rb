@@ -17,7 +17,7 @@ class DeveloperController < Rho::RhoController
 
   # GET /Developer/{1}
   def show
-    id =@params['id']
+    id =@params['developer_id']
     response =  Rho::AsyncHttp.get(:url => Rho::RhoConfig.RESTFUL_URL + "developers/"+ id +".json",
     :headers => {"Content-Type" => "application/json"})
     
