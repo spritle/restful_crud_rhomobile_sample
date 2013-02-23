@@ -2,7 +2,7 @@
 
 	<div data-role="header" data-position="inline">
 		<h1>Edit <%= @result['name'] %></h1>
-		<a href="<%= url_for :action => :show, :query => {:developer_id =>@result['id']}%>" class="ui-btn-left" data-icon="back" data-direction="reverse">
+		<a href="<%= url_for :action => :index %>" class="ui-btn-left" data-icon="back" data-direction="reverse">
 			Cancel
 		</a>
 		<a href="<%= url_for :action => :delete, :query => {:developer_id =>@result['id']}%>" class="ui-btn-right" data-icon="delete" data-direction="reverse">
